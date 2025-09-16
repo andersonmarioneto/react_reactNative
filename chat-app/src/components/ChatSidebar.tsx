@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { ChatContact } from '../types';
+import type { ChatContact } from '../types';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { ContactItem } from './ContactItem';
 

@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import {
   MagnifyingGlassIcon,
-  PhoneIcon,
-  VideoCameraIcon,
-  EllipsisVerticalIcon,
   FaceSmileIcon,
   PaperClipIcon,
   MicrophoneIcon,
   PaperAirplaneIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
+import { ChatHeader } from './ChatHeader';
   PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
+import { ChatHeader } from './ChatHeader';
 
 interface Message {
   id: number;
@@ -32,6 +31,7 @@ interface ChatContact {
 export function ChatMain() {
   const [searchQuery, setSearchQuery] = useState('');
   const [newMessage, setNewMessage] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   // Dados mockados para exemplo visual
   const contacts: ChatContact[] = [
@@ -72,7 +72,7 @@ export function ChatMain() {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar - Lista de Contatos */}
-      <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
+      <div className={`${isSidebarOpen ? 'block' : 'hidden'} md:block w-full md:w-1/4 bg-white border-r border-gray-200 flex flex-col`}>
         {/* Cabeçalho do Sidebar */}
         <div className="p-4 border-b border-gray-200 bg-[#f8f9fa]">
           <div className="relative">
@@ -115,7 +115,7 @@ export function ChatMain() {
       </div>
 
       {/* Área Principal do Chat */}
-      <div className="flex-1 flex flex-col">
+      <div className={`flex-1 flex flex-col ${!isSidebarOpen ? 'block' : 'hidden'} md:block`}>
         {/* Cabeçalho do Chat */}
         <div className="bg-white p-4 flex items-center justify-between border-b border-gray-200">
           <div className="flex items-center">

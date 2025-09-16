@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { ChatContact } from '../types';
+import type { ChatContact } from '../types';
 
 interface ContactItemProps {
   contact: ChatContact;

@@ -3,17 +3,25 @@ import type { ChatContact } from '../types';
 import {
   PhoneIcon,
   VideoCameraIcon,
-  EllipsisVerticalIcon
+  EllipsisVerticalIcon,
+  Bars3Icon
 } from '@heroicons/react/24/outline';
 
 interface ChatHeaderProps {
   currentContact: ChatContact;
+  onMenuClick?: () => void;
 }
 
-export const ChatHeader: FC<ChatHeaderProps> = ({ currentContact }) => {
+export const ChatHeader: FC<ChatHeaderProps> = ({ currentContact, onMenuClick }) => {
   return (
     <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 shadow-sm">
       <div className="flex items-center">
+        <button 
+          onClick={onMenuClick}
+          className="mr-3 md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <Bars3Icon className="h-5 w-5 text-gray-600" />
+        </button>
         <div className="relative">
           <img
             src={currentContact.avatar}

@@ -31,6 +31,8 @@ interface ChatContact {
 export function ChatMain() {
   const [searchQuery, setSearchQuery] = useState('');
   const [newMessage, setNewMessage] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [selectedContact, setSelectedContact] = useState<ChatContact | null>(null);
 
   // Dados mockados para exemplo visual
   const contacts: ChatContact[] = [
@@ -68,10 +70,28 @@ export function ChatMain() {
     },
   ];
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleContactClick = (contact: ChatContact) => {
+    setSelectedContact(contact);
+    // Em mobile, fecha a sidebar ao selecionar um contato
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false);
+    }
+  };
+
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar - Lista de Contatos */}
-      <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
+      <div 
+        className={`
+          absolute md:relative w-full md:w-[380px] bg-white border-r border-gray-200 
+          flex flex-col h-full transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}
+      >
         {/* Cabeçalho do Sidebar */}
         <div className="p-4 border-b border-gray-200 bg-[#f8f9fa]">
           <div className="relative">
@@ -92,6 +112,7 @@ export function ChatMain() {
             <div
               key={contact.id}
               className="flex items-center p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 transition-colors duration-200"
+              onClick={() => handleContactClick(contact)}
             >
               <div className="relative">
                 <img
@@ -121,9 +142,18 @@ export function ChatMain() {
       </div>
 
       {/* Área Principal do Chat */}
-      <div className="flex-1 flex flex-col bg-[#f8f9fa]">
-        {/* Cabeçalho do Chat */}
-        <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 shadow-sm">
+      <div className={`
+        flex-1 flex flex-col h-full w-full bg-[#f8f9fa]
+        transition-transform duration-300 ease-in-out
+        ${isSidebarOpen ? 'translate-x-full md:translate-x-0' : 'translate-x-0'}
+      `}>
+        {selectedContact ? (
+          <>
+            {/* Cabeçalho do Chat */}
+            <ChatHeader 
+              currentContact={selectedContact} 
+              onMenuClick={toggleSidebar} 
+            />
           <div className="flex items-center">
             <div className="relative">
               <img

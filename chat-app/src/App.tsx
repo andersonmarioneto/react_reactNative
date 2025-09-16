@@ -1,12 +1,12 @@
-import './App.css'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { Login } from './components/Login'
-import { Register } from './components/Register'
-import { ChatMain } from './components/ChatMain_v2'
+import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
+import { ChatMain } from './components/ChatMain_v3';
+import { useState } from 'react';
 
 function App() {
-  // Temporariamente definindo como true para desenvolvimento
-  const isAuthenticated = true;
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   return (
     <Router>
@@ -19,15 +19,21 @@ function App() {
         />
         <Route 
           path="/login" 
-          element={<Login />} 
+          element={
+            <Login onLoginSuccess={() => setIsAuthenticated(true)} />
+          } 
         />
         <Route 
           path="/register" 
-          element={<Register />} 
+          element={
+            <Register onRegisterSuccess={() => setIsAuthenticated(true)} />
+          } 
         />
         <Route 
           path="/chat" 
-          element={<ChatMain />} 
+          element={
+            isAuthenticated ? <ChatMain /> : <Navigate to="/login" />
+          } 
         />
       </Routes>
     </Router>

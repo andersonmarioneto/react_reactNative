@@ -7,7 +7,11 @@ interface LoginData {
   password: string;
 }
 
-export function Login() {
+interface LoginProps {
+  onLoginSuccess: () => void;
+}
+
+export function Login({ onLoginSuccess }: LoginProps) {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState<LoginData>({
     email: '',
@@ -18,6 +22,7 @@ export function Login() {
     e.preventDefault();
     // Aqui você pode adicionar sua lógica de autenticação posteriormente
     console.log('Dados de login:', loginData);
+    onLoginSuccess();
     navigate('/chat');
   };
 

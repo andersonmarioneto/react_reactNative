@@ -9,7 +9,11 @@ interface RegisterData {
   confirmPassword: string;
 }
 
-export function Register() {
+interface RegisterProps {
+  onRegisterSuccess: () => void;
+}
+
+export function Register({ onRegisterSuccess }: RegisterProps) {
   const navigate = useNavigate();
   const [registerData, setRegisterData] = useState<RegisterData>({
     name: '',
@@ -20,8 +24,14 @@ export function Register() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (registerData.password !== registerData.confirmPassword) {
+      alert('As senhas não coincidem!');
+      return;
+    }
     // Aqui você pode adicionar sua lógica de registro
     console.log('Dados de registro:', registerData);
+    onRegisterSuccess();
+    navigate('/chat');
   };
 
   return (
