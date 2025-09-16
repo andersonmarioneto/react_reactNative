@@ -1,12 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import Texto from './components/Texto';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './routes/Home';
+import Sobre from './routes/Sobre';
 
 function App() {
   return (
     <>
-      <p>Anderson Mário Neto</p>
-      <Texto />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sobre" element={<Sobre />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
