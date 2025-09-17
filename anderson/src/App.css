@@ -171,10 +171,20 @@ img {
 
 /* Responsive Telas */
 /* large */
-@media screen and (max-width: 992px){}
+@media screen and (max-width: 992px){
+  .container {
+    margin-left: var(--mb-1-5);
+    margin-right: var(--mb-1-5);
+  }
+}
 /* medium */
 @media screen and (max-width: 768px){}
 /* medium */
 @media screen and (max-width: 576px){}
 /* small */
-@media screen and (max-width: 350px){}
+@media screen and (max-width: 350px){
+  .container {
+    margin-left: var(--mb-1);
+    margin-right: var(--mb-1);
+  }
+}
